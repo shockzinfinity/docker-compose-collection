@@ -118,3 +118,4 @@ dist
 
 mssql-data/
 postgre-data/
+mariadb/data/
