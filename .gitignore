@@ -115,7 +115,13 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-
 mssql-data/
 postgre-data/
 mariadb/data/
+mysqldata/
+sql-data/
+xdebug/app/public/
+xdebug/app/webroot/
+
+elasticsearch_data/
+seq_data/

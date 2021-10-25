@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  jupyter:
+    image: ghcr.io/shockzinfinity/deepo:latest
+    volumes:
+      - /home/shockz/docker/deepo/data:/data
+      - /home/shockz/docker/deepo/config:/config
+    ipc: host
+    ports:
+      - "8888:8888"
+      - "6006-6015:6006-6015"
+    restart: unless-stopped
+    entrypoint: sh -c 'jupyter lab --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir /data --config /config/jupyter_notebook_config.py'
+    #entrypoint: sh -c 'jupyter lab --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir /data'

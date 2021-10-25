@@ -1,0 +1,58 @@
+version: "3.4"
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+    container_name: elasticsearch
+    restart: "unless-stopped"
+    environment:
+      - xpack.monitoring.enabled=true
+      - xpack.watcher.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./elasticsearch_data:/usr/share/elasticsearch/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.2
+    container_name: kibana
+    restart: "unless-stopped"
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    expose:
+      - "80"
+      - "5341"
+    restart: "unless-stopped"
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_API_INGESTIONPORT=5341
+    ports:
+      - "5602:80"
+      - "5341:5341"
+    volumes:
+      - ./seq_data:/data
+
+networks:
+  elk:
+    driver: bridge

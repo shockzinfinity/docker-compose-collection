@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-maria
+  labels:
+    app: wordpress
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+      tier: maria
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        tier: maria
+    spec:
+      containers:
+        - image: mariadb:latest
+          name: maria
+          env:
+            - name: MYSQL_DATABASE
+              value: wordpress
+          ports:
+            - containerPort: 3306
+              name: maria
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-maria
+  labels:
+    app: wordpress
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: wordpress
+    tier: maria
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+      tier: app
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        tier: app
+
+    spec:
+      containers:
+        - image: ghcr.io/shockzinfinity/wordpress:latest
+          name: wordpress
+          env:
+            - name: WORDPRESS_DB_HOST
+              value: wordpress-maria
+            - name: WORDPRESS_DB_USER
+              value: $MYSQL_USER
+            - name: WORDPRESS_DB_PASSWORD
+              value: $MYSQL_PASSWORD
+            - name: WORDPRESS_DB_NAME
+              value: wordpress
+          ports:
+            - containerPort: 80
+              name: wordpress
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      nodePort: 30000
+  selector:
+    app: wordpress
+    tier: frontend
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+    tier: web
