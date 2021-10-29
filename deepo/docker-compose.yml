@@ -3,7 +3,6 @@ version: "3"
 services:
   jupyter:
     image: ghcr.io/shockzinfinity/deepo:latest
-    # image: deepo
     volumes:
       - /home/shockz/docker/deepo/data:/data
       - /home/shockz/docker/deepo/config:/config
