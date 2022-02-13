@@ -129,3 +129,11 @@ jenkins_home/
 
 oracle-data/
 oracle-setup/
+
+**/*.rpm
+**/*.jar
+**/*.zip
+**/*.tar.gz
+**/*.bin
+.idea/
+.DS_Store
