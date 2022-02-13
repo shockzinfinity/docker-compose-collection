@@ -126,3 +126,6 @@ xdebug/app/webroot/
 elasticsearch_data/
 seq_data/
 jenkins_home/
+
+oracle-data/
+oracle-setup/

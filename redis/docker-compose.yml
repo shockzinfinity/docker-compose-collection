@@ -1,14 +1,15 @@
-version: '3.7'
+version: "3.7"
 
 services:
-    redis:
-      image: redis:6.0.5
-      # command: redis-server --requirepass changeme --port 6379
-      command: redis-server --port 6379
-      container_name: redis
-      hostname: redis6379
-      labels:
-        - "name=redis"
-        - "mode=standalone"
-      ports:
-        - 6379:6379
+  redis:
+    image: redis:6.0.5
+    # command: redis-server --requirepass changeme --port 6379
+    command: redis-server --port 6379
+    container_name: redis
+    hostname: redis6379
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    ports:
+      - 6379:6379
+    restart: "unless-stopped"
