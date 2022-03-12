@@ -1,19 +1,18 @@
-version: '3'
+version: "3"
 
 services:
-  mssql:
-    image: ghcr.io/shockzinfinity/mssql-fts:latest
+  mssql-fts:
+    # image: ghcr.io/shockzinfinity/mssql-fts:latest
+    container_name: mssql-fts
+    build:
+      context: .
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_AGENT_ENABLED=True
-      - SA_PASSWORD=y0urStrong\!Password
+      - SA_PASSWORD=P@ssw0rd
     volumes:
-      - /home/shockz/sql-data:/var/opt/mssql
+      - ./mssql-data:/var/opt/mssql/data
     ipc: host
     ports:
-      - "11433:1433"
+      - "11434:1433"
     restart: unless-stopped
-networks:
-  default:
-    external:
-      name: mssql-outer
