@@ -137,3 +137,5 @@ oracle-setup/
 **/*.bin
 .idea/
 .DS_Store
+
+mongodb-data/
