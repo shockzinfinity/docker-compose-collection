@@ -139,3 +139,4 @@ oracle-setup/
 .DS_Store
 
 mongodb-data/
+pgadmin-data/
