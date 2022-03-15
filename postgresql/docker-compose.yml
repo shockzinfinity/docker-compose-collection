@@ -1,12 +1,12 @@
-version: '2'
-services: 
+version: "2"
+services:
   postgres:
     image: postgres:10
     container_name: postgres
     restart: always
-    environment: 
+    environment:
       - POSTGRES_PASSWORD=P@ssw0rd
-    ports: 
-      - '15432:5432'
-    volumes: 
-      - ./postgre-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data

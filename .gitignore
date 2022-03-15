@@ -116,7 +116,7 @@ dist
 .pnp.*
 
 mssql-data/
-postgre-data/
+postgres-data/
 mariadb/data/
 mysqldata/
 sql-data/
