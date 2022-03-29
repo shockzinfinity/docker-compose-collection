@@ -1,10 +1,12 @@
-version: '3'
+version: "3"
 
 services:
   seq:
     image: datalust/seq:latest
+    environment:
+      ACCEPT_EULA: Y
+    volumes:
+      - ./seq-data:/data
     ports:
       - 8090:80
       - 5341:5341
-    environment:
-      ACCEPT_EULA: Y
