@@ -2,9 +2,10 @@ version: "3"
 
 services:
   seq:
+    container_name: seq
     image: datalust/seq:latest
     environment:
-      ACCEPT_EULA: Y
+      - ACCEPT_EULA=Y
     volumes:
       - ./seq-data:/data
     ports:
