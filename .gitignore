@@ -141,3 +141,5 @@ oracle-setup/
 mongodb-data/
 mongodb/
 pgadmin-data/
+
+grafana-data/
