@@ -4,20 +4,33 @@ services:
   prometheus:
     image: ubuntu/prometheus
     container_name: dev_prometheus
-    ports:
-      - "30090:9090"
+    #ports:
+    #  - "30090:9090"
     environment:
       - TZ=UTC
+      - VIRTUAL_HOST=prom.shockz.io
+      - VIRTUAL_PORT=9090
+      - LETSENCRYPT_HOST=prom.shockz.io
+      - LETSCRYPT_EMAIL=shockz@aegisk.com
     volumes:
       - ./prom/prometheus.yml:/etc/prometheus/prometheus.yml
 
   grafana:
     image: grafana/grafana
+    #user: "1000"
     container_name: dev_grafana
-    ports:
-      - "30091:3000"
+    environment:
+      - VIRTUAL_HOST=grafana.shockz.io
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=grafana.shockz.io
+      - LETSCRYPT_EMAIL=shockz@aegisk.com
+    #ports:
+    #  - "30091:3000"
     volumes:
       - ./grafana-data/data:/var/lib/grafana
 
+networks:
+  default:
+    name: nginx-proxy
 
-# docker compose exec -it grafana grafana-cli admin reset-admin-password xxxxxxxx
+# docker compose exec grafana grafana-cli admin reset-admin-password xxxxxxxx
